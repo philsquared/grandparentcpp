@@ -3,4 +3,4 @@ project(GrandParent)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(GrandParent main.cpp vector-int-string.cpp memory.cpp)
+add_executable(GrandParent main.cpp vector-int-string.cpp memory.cpp constexpr.cpp)

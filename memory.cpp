@@ -65,7 +65,7 @@ namespace Cpp11 {
                 : m_name( std::move( name ) ),
                   m_data( std::move( data ) ) {}
 
-        MyClass( MyClass &&other )
+        MyClass( MyClass &&other ) noexcept
         :   m_name( std::move( other.m_name ) ),
             m_data( std::move( other.m_data ) )
         {}
