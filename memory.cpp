@@ -96,6 +96,7 @@ TEST_CASE( "Heap memory management" ) {
 
             delete obj; // leaks if you forget this, or if an exception is thrown
         }
+#if __cplusplus < 201402L
         SECTION( "auto_ptr" ) {
             std::auto_ptr<MyClass> obj( new MyClass("Harry", data) ); // data copied in
 
@@ -114,7 +115,9 @@ TEST_CASE( "Heap memory management" ) {
             // Common alternatives: boost::scoped_ptr, boost::shared_ptr, Loki::SmartPtr
             // unique ownership a thorny problem in C++98
         }
+    #endif
     }
+
     SECTION( "C++11" ) {
         using namespace Cpp11;
 

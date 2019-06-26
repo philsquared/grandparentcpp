@@ -193,6 +193,23 @@ TEST_CASE( "Vector of ints to vector of string" ) {
         }
     }
 
+    SECTION( "C++17" ) {
+        using namespace std::string_literals;
 
+        std::vector fib = {1, 1, 2, 3, 5, 8}; // CTAD
+        std::vector expected = {"1"s, "1"s, "2"s, "3"s, "5"s, "8"s}; // Needs string literals for CTAD to work
+
+        SECTION("auto lambda") {
+
+            std::vector<std::string> stringFib;
+
+            std::transform(
+                    fib.begin(), fib.end(),
+                    std::back_inserter(stringFib),
+                    [](auto i) { return std::to_string(i); });
+
+            REQUIRE_THAT(stringFib, Equals(expected));
+        }
+    }
 
 }
