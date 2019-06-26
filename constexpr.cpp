@@ -16,6 +16,7 @@ namespace Cpp98 {
     };
 }
 namespace Cpp11 {
+    [[deprecated("Use for loop version instead")]]
     constexpr unsigned factorial( unsigned n ) {
         return n == 0
             ? 1
@@ -23,9 +24,9 @@ namespace Cpp11 {
     }
 }
 namespace Cpp14 {
-    constexpr unsigned factorial( unsigned n ) {
+    constexpr auto factorial(unsigned n) {
         unsigned result = 1;
-        for( unsigned i = 2; i<=n; ++i )
+        for (unsigned i = 2; i <= n; ++i)
             result *= i;
         return result;
     }
@@ -51,6 +52,15 @@ TEST_CASE( "CT Factorial" ) {
         char array[factorial(3)];
 
         REQUIRE(sizeof(array) == 6);
+    }
 
+    SECTION( "C++14" ) {
+        using namespace Cpp14;
+
+        REQUIRE(factorial(3) == 6);
+
+        char array[factorial(3)];
+
+        REQUIRE(sizeof(array) == 6);
     }
 }
