@@ -179,4 +179,9 @@ TEST_CASE( "Heap memory management" ) {
         }
 
     }
+    SECTION( "C++14" ) {
+        SECTION( "make_unique" ) {
+            auto obj = std::make_unique<Cpp11::MyClass>( "Harry", std::vector<std::string>{"first", "second"} );
+        }
+    }
 }

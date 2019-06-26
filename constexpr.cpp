@@ -22,6 +22,14 @@ namespace Cpp11 {
             : n * factorial(n-1);
     }
 }
+namespace Cpp14 {
+    constexpr unsigned factorial( unsigned n ) {
+        unsigned result = 1;
+        for( unsigned i = 2; i<=n; ++i )
+            result *= i;
+        return result;
+    }
+}
 
 TEST_CASE( "CT Factorial" ) {
 

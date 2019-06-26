@@ -160,4 +160,39 @@ TEST_CASE( "Vector of ints to vector of string" ) {
             //REQUIRE_THAT( stringFib, Equals(expected) ); // fails as-is
         }
     }
+
+    SECTION( "C++14" ) {
+        std::vector<int> fib = {1, 1, 2, 3, 5, 8};
+        std::vector<std::string> expected = {"1", "1", "2", "3", "5", "8"};
+
+        SECTION( "auto lambda" ) {
+
+            std::vector<std::string> stringFib;
+
+            std::transform(
+                    fib.begin(), fib.end(),
+                    std::back_inserter( stringFib ),
+                    []( auto i ) { return std::to_string( i ); } ); // use auto, here
+
+            REQUIRE_THAT( stringFib, Equals(expected) );
+        }
+
+        SECTION( "algo with explicit struct, using auto return types" ) {
+
+            std::vector<std::string> stringFib;
+
+            struct Converter {
+                auto operator()( int i ) const /* -> std::string */ {
+                    return std::to_string( i );
+                }
+            };
+
+            // can't (easily) pass pointer to to_string
+            std::transform( fib.begin(), fib.end(), std::back_inserter( stringFib ), Converter() );
+            REQUIRE_THAT( stringFib, Equals(expected) );
+        }
+    }
+
+
+
 }
